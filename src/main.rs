@@ -73,33 +73,41 @@ fn parse_file(mut file: File) -> String {
 }
 
 fn add_entry() {
-    println!("\n\n");
-    print!("Enter title: ");
+    print!("\nEnter title: ");
     io::stdout().flush().unwrap();
     let title = capture_input();
-    println!("{:?}", title);
+
     print!("Enter tags: ");
     io::stdout().flush().unwrap();
     let tags = capture_input();
+
     print!("Enter cost: ");
     io::stdout().flush().unwrap();
     let cost = capture_input();
+
     print!("Enter priority: ");
     io::stdout().flush().unwrap();
     let priority = capture_input();
+
+    let mut file_buffer: File = open_file();
+    // let mut save_text = String::new().push_str(&title);
+    let save: String = format!("{},{},{},{}\n", title, tags, cost, priority);
+
+    file_buffer.write_all(save.as_bytes());
+
+
     println!("\n{} [{}]: ${}, {}\n", title, tags, cost, priority);
 }
 
 fn main() {
 
     print_welcome();
-    let file_buffer: File = open_file();
-    parse_file(file_buffer);
 
-    let mut input = String::new();
+    // let file_buffer: File = open_file();
+    // parse_file(file_buffer);
+
     loop {
-        input = capture_command();
-        match input.trim() {
+        match capture_command().trim() {
             "m" | "menu" => print_menu(),
             "h" | "help" => print_help(),
             "e" | "exit" => { print_exit(); break; },
