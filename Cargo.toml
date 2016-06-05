@@ -1,0 +1,7 @@
+[package]
+name = "track"
+version = "0.1.0"
+authors = ["pabloalonso <pabloalonsos.eu@gmail.com>"]
+
+[dependencies]
+term = "*"
